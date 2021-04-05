@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에는 Mapper로 사용할 인터페이스의 풀경로이름 -->
+<mapper namespace="com.myapp.webprj.board.mapper.BoardMapper">
+
+    <!-- select를 위한 resultMap -->
+    <resultMap id="boardMap" type="com.myapp.webprj.board.domain.Board">
+        <result property="regDate" column="regdate" />
+        <result property="updateDate" column="updatedate" />
+    </resultMap>
+
+    <select id="getList" resultMap="boardMap">
+        SELECT * FROM tbl_free_board
+        WHERE bno > 0
+        ORDER BY bno DESC
+    </select>
+
+    <select id="findByBno" resultMap="boardMap">
+        SELECT * FROM tbl_free_board
+        WHERE bno = #{bno}
+    </select>
+
+    <insert id="save">
+        INSERT INTO tbl_free_board
+           (bno, title, content, writer)
+        VALUES (seq_free_board.nextval, #{title}, #{content}, #{writer})
+    </insert>
+
+    <update id="update">
+        UPDATE tbl_free_board
+        SET
+            title = #{title},
+            content = #{content},
+            writer = #{writer},
+            updatedate = SYSDATE
+        WHERE bno = #{bno}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tbl_free_board
+        WHERE bno = #{bno}
+    </delete>
+
+</mapper>
