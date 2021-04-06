@@ -53,4 +53,23 @@ public class BoardController {
         model.addAttribute("board", board);
         return "board/get";
     }
+
+    //게시글 수정 화면 요청
+    @GetMapping("/modify")
+    public String modify(Long bno, Model model) {
+        log.info("/board/modify GET!: " + bno);
+        model.addAttribute("board", boardService.get(bno));
+        return "board/modify";
+    }
+
+    //게시글 수정 완료처리 요청
+    @PostMapping("/modify")
+    public String modify(Board board, RedirectAttributes ra) {
+        log.info("/board/modify POST!: " + board);
+        boolean modify = boardService.modify(board);
+        if (modify) {
+            ra.addFlashAttribute("msg", "modSuccess");
+        }
+        return "redirect:/board/list";
+    }
 }

@@ -106,6 +106,8 @@ $(document).ready(function() {
 
         if (msg === 'regSuccess') {
             $modalBody.textContent = '게시글이 등록되었습니다.';
+        } else if (msg === 'modSuccess') {
+            $modalBody.textContent = '게시글이 수정되었습니다.';
         }
 
         //모달창 오픈

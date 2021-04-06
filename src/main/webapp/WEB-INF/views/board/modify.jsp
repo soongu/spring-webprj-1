@@ -58,9 +58,9 @@
 
 
                     <div class="btn-group">
-                        <button type="submit" data-oper='modify' class="btn btn-default">Modify</button>
-                        <button type="button" data-oper='remove' class="btn btn-danger">Remove</button>
-                        <button type="button" data-oper='list' class="btn btn-info">List</button>
+                        <button type="submit" data-oper='modify' class="btn btn-default">수정</button>
+                        <button type="button" data-oper='remove' class="btn btn-danger">삭제</button>
+                        <button type="button" data-oper='list' class="btn btn-info">목록</button>
                     </div>
                 </form>
 
@@ -75,6 +75,11 @@
 </div>
 <!-- /.row -->
 
+<script>
+
+
+    
+</script>
 
 
 <%@include file="../includes/footer.jsp"%>
