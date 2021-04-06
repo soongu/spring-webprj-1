@@ -51,4 +51,42 @@ class BoardMapperTest {
         assertTrue(mapper.getList().get(0).getBno() == 6);
     }
 
+    @Test
+    @DisplayName("글 번호를 전달하면 해당 글 정보를 얻어야 한다.")
+    void findOneTest() {
+        Board board = mapper.findByBno(5L);
+        System.out.println("board = " + board);
+
+        assertTrue(board.getBno() == 5);
+    }
+
+    @Test
+    @DisplayName("글내용, 글제목, 작성자를 수정할 수 있어야 한다.")
+    void updateTest() {
+        //given
+        Board newBoard = new Board();
+        newBoard.setBno(3L);
+        newBoard.setWriter("도우너");
+        newBoard.setContent("메롱메롱");
+        newBoard.setTitle("둘리와 도우너");
+
+        //when
+        int resultNum = mapper.update(newBoard);
+        //then
+        assertTrue(resultNum == 1);
+        assertTrue(mapper.findByBno(3L).getWriter().equals("도우너"));
+    }
+
+    @Test
+    @DisplayName("글 번호를 전달하면 해당 글 정보가 삭제되어야 한다.")
+    void deleteTest() {
+
+        //when
+        mapper.delete(4L);
+
+        //then
+        assertNull(mapper.findByBno(4L));
+
+    }
+
 }
