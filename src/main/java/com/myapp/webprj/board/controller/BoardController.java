@@ -2,6 +2,8 @@ package com.myapp.webprj.board.controller;
 
 import com.myapp.webprj.board.domain.Board;
 import com.myapp.webprj.board.service.BoardService;
+import com.myapp.webprj.common.Criteria;
+import com.myapp.webprj.common.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -23,10 +25,11 @@ public class BoardController {
 
     //게시물 목록 요청 처리
     @GetMapping("/list")
-    public String list(Model model) {
-        log.info("/board/list GET요청 발생!");
-        List<Board> list = boardService.getList();
+    public String list(Criteria cri, Model model) {
+        log.info("/board/list GET요청 발생!: " + cri);
+        List<Board> list = boardService.getList(cri);
         model.addAttribute("list", list);
+        model.addAttribute("pageInfo", new PageMaker(cri, boardService.getTotal()));
         return "board/list";
     }
 

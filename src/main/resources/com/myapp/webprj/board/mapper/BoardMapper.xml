@@ -18,6 +18,30 @@
         ORDER BY bno DESC
     </select>
 
+    <!--  페이징 쿼리  -->
+    <select id="getListWithPaging" resultMap="boardMap">
+        <![CDATA[
+          select
+            bno, title, content, writer, regdate, updatedate
+          from
+              (
+              select /*+INDEX_DESC(tbl_free_board pk_free_board) */
+                rownum rn, bno, title, content, writer, regdate, updatedate
+              from
+                tbl_free_board
+              where rownum <= #{page} * #{amount}
+              )
+          where rn > (#{page} -1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM tbl_free_board
+    </select>
+
+
     <select id="findByBno" resultMap="boardMap">
         SELECT * FROM tbl_free_board
         WHERE bno = #{bno}

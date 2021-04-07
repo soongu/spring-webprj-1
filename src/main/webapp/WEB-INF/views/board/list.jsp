@@ -56,6 +56,30 @@
                     </c:forEach>
                 </table>
 
+                <!-- pagination -->
+                <div class="pull-right">
+                    <ul class="pagination">
+
+                        <c:if test="${pageInfo.prev}">
+                            <li class="paginate_button previous">
+                                <a href="/board/list?page=${pageInfo.startPage - 1}">이전</a>
+                            </li>
+                        </c:if>
+
+                        <c:forEach var="num" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+                            <li class="paginate_button"><a href="/board/list?page=${num}">${num}</a></li>
+                        </c:forEach>
+
+                        <c:if test="${pageInfo.next}">
+                            <li class="paginate_button next">
+                                <a href="/board/list?page=${pageInfo.endPage + 1}">다음</a>
+                            </li>
+                        </c:if>
+
+                    </ul>
+                </div>
+                <!-- end pagination -->
+
                 <!-- Modal  추가 -->
                 <div class="modal fade" id="myModal">
                     <div class="modal-dialog">
@@ -116,9 +140,22 @@ $(document).ready(function() {
         $('#myModal').modal('show');
     }
 
+    //현재 위치한 페이지에 클래스 active 부여하는 함수 정의
+    function appendPageActive(currentPage) {
+        const $pageLiList = document.querySelectorAll('.paginate_button');
+        for ($li of $pageLiList) {
+            if ($li.textContent === currentPage) {
+                $li.classList.add('active');
+            }
+        }
+    }
+
     (function () {
         
         checkModal(resultMessage);
+
+        //현재 위치한 페이지에 클래스 active 부여하는 함수
+        appendPageActive("${pageInfo.cri.page}");
 
     }());
 });

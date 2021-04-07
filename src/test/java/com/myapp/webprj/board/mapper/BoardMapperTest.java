@@ -1,6 +1,7 @@
 package com.myapp.webprj.board.mapper;
 
 import com.myapp.webprj.board.domain.Board;
+import com.myapp.webprj.common.Criteria;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,41 @@ class BoardMapperTest {
         //then
         assertNull(mapper.findByBno(4L));
 
+    }
+
+    @Test
+    @DisplayName("테스트 게시물 300개를 추가해야 한다.")
+    void bulkInsert() {
+        for (int i = 1; i <= 300; i++) {
+            Board board = new Board();
+            board.setTitle("테스트제목" + i);
+            board.setContent("테스트중입니다.");
+            board.setWriter("USER" + i);
+
+            mapper.save(board);
+        }
+    }
+
+    @Test
+    @DisplayName("페이지 정보대로 목록이 조회되어야 한다.")
+    void pagingTest() {
+
+        Criteria cri = new Criteria(2, 10);
+        List<Board> list = mapper.getListWithPaging(cri);
+
+        for (Board board : list) {
+            System.out.println(board);
+        }
+    }
+
+    @Test
+    @DisplayName("총 게시물 수를 잘 조회해야 한다.")
+    void totalCountTest() {
+        int totalCount = mapper.getTotalCount();
+
+        System.out.println("totalCount = " + totalCount);
+
+        assertTrue(totalCount == 310);
     }
 
 }
