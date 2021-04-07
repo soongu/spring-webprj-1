@@ -72,4 +72,15 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
+
+    //게시글 삭제 완료처리 요청
+    @PostMapping("/remove")
+    public String remove(Long bno, RedirectAttributes ra) {
+        log.info("/board/remove POST!: " + bno);
+        boolean remove = boardService.remove(bno);
+        if (remove) {
+            ra.addFlashAttribute("msg", "delSuccess");
+        }
+        return "redirect:/board/list";
+    }
 }
