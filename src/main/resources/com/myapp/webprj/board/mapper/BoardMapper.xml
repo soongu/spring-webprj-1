@@ -61,6 +61,68 @@
         ]]>
     </select>
 
+    <select id="getTotalCountByTitle" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM tbl_free_board
+        WHERE title like '%' || #{keyword} || '%'
+    </select>
+
+    <!--  목록 조회 통합   -->
+    <select id="getSearchList" resultMap="boardMap">
+        <![CDATA[
+          select
+            bno, title, content, writer, regdate, updatedate
+          from
+              (
+              select /*+INDEX_DESC(tbl_free_board pk_free_board) */
+                rownum rn, bno, title, content, writer, regdate, updatedate
+              from
+                tbl_free_board
+              where
+          ]]>
+                <if test="type == 'title'">
+                    title like '%' || #{keyword} || '%' AND
+                </if>
+                <if test="type == 'content'">
+                    content like '%' || #{keyword} || '%' AND
+                </if>
+                <if test="type == 'writer'">
+                    writer like '%' || #{keyword} || '%' AND
+                </if>
+                <if test="type == 'titleContent'">
+                    (title like '%' || #{keyword} || '%'
+                    OR content like '%' || #{keyword} || '%')
+                    AND
+                </if>
+        <![CDATA[
+                rownum <= #{page} * #{amount}
+              )
+          where rn > (#{page} -1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="getSearchTotalCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM tbl_free_board
+
+        <if test="type == 'title'">
+            WHERE title like '%' || #{keyword} || '%'
+        </if>
+        <if test="type == 'content'">
+            WHERE content like '%' || #{keyword} || '%'
+        </if>
+        <if test="type == 'writer'">
+            WHERE writer like '%' || #{keyword} || '%'
+        </if>
+        <if test="type == 'titleContent'">
+            WHERE (title like '%' || #{keyword} || '%'
+            OR content like '%' || #{keyword} || '%')
+        </if>
+
+    </select>
+
 
     <select id="findByBno" resultMap="boardMap">
         SELECT * FROM tbl_free_board

@@ -62,10 +62,10 @@
 						<form id='searchForm' action="/board/list" method='get'>
 							<select name='type'>
 								<option value="">--</option>
-								<option value="">제목</option>
-								<option value="">내용</option>
-								<option value="">작성자</option>
-								<option value="">제목 or 내용</option>				
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+								<option value="writer">작성자</option>
+								<option value="titleContent">제목 or 내용</option>	
 							</select> 
 							<input type='text' name='keyword' /> 	
 							<button class='btn btn-default'>Search</button>

@@ -21,5 +21,8 @@ public interface BoardService {
 
     //게시물 전체 조회 과정
     List<Board> getList(Criteria cri);
-    int getTotal();
+    int getTotal(Criteria cri);
+
+    //게시물 검색 조회 과정
+    List<Board> searchList(Criteria cri);
 }

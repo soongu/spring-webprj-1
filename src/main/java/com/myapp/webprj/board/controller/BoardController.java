@@ -27,9 +27,12 @@ public class BoardController {
     @GetMapping("/list")
     public String list(Criteria cri, Model model) {
         log.info("/board/list GET요청 발생!: " + cri);
-        List<Board> list = boardService.getList(cri);
+
+//        List<Board> list = boardService.getList(cri);
+        List<Board> list = boardService.searchList(cri);
+
         model.addAttribute("list", list);
-        model.addAttribute("pageInfo", new PageMaker(cri, boardService.getTotal()));
+        model.addAttribute("pageInfo", new PageMaker(cri, boardService.getTotal(cri)));
         return "board/list";
     }
 
