@@ -40,7 +40,7 @@
                             <td>${board.bno}</td>
 
                             <td>
-                                <a class='move' href="/board/get?bno=${board.bno}">
+                                <a class='move' href="/board/get${pageInfo.makeParam(pageInfo.cri.page)}&bno=${board.bno}">
                                     ${board.title}
                                 </a>
                             </td>
@@ -62,12 +62,12 @@
 						<form id='searchForm' action="/board/list" method='get'>
 							<select name='type'>
 								<option value="">--</option>
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-								<option value="writer">작성자</option>
-								<option value="titleContent">제목 or 내용</option>	
+								<option value="title" ${pageInfo.cri.type == 'title' ? 'selected' : ''}>제목</option>
+								<option value="content" ${pageInfo.cri.type == 'content' ? 'selected' : ''}>내용</option>
+								<option value="writer" ${pageInfo.cri.type == 'writer' ? 'selected' : ''}>작성자</option>
+								<option value="titleContent" ${pageInfo.cri.type == 'titleContent' ? 'selected' : ''}>제목 or 내용</option>	
 							</select> 
-							<input type='text' name='keyword' /> 	
+							<input type='text' name='keyword' value="${pageInfo.cri.keyword}" /> 	
 							<button class='btn btn-default'>Search</button>
 						</form>
 					</div>
@@ -79,17 +79,17 @@
 
                         <c:if test="${pageInfo.prev}">
                             <li class="paginate_button previous">
-                                <a href="/board/list?page=${pageInfo.startPage - 1}">이전</a>
+                                <a href="/board/list${pageInfo.makeParam(pageInfo.startPage-1)}">이전</a>
                             </li>
                         </c:if>
 
                         <c:forEach var="num" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-                            <li class="paginate_button"><a href="/board/list?page=${num}">${num}</a></li>
+                            <li class="paginate_button"><a href="/board/list${pageInfo.makeParam(num)}">${num}</a></li>
                         </c:forEach>
 
                         <c:if test="${pageInfo.next}">
                             <li class="paginate_button next">
-                                <a href="/board/list?page=${pageInfo.endPage + 1}">다음</a>
+                                <a href="/board/list${pageInfo.makeParam(pageInfo.endPage+1)}">다음</a>
                             </li>
                         </c:if>
 

@@ -47,6 +47,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> searchList(Criteria cri) {
-        return boardMapper.getSearchList(cri);
+        List<Board> searchList = boardMapper.getSearchList(cri);
+
+        return searchList;
     }
 }

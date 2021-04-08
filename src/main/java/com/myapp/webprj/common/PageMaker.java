@@ -2,6 +2,8 @@ package com.myapp.webprj.common;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 //클라이언트에 각종 페이지 관련 정보를 전달하는 클래스
 @ToString
@@ -47,5 +49,16 @@ public class PageMaker {
         //다음 페이지 표시 여부
         this.next = this.endPage < realEnd;
     }
+
+    //URI 파라미터를 쉽게 생성해주는 메서드
+    public String makeParam(int page) {
+        UriComponents build = UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("keyword", cri.getKeyword())
+                .queryParam("type", cri.getType())
+                .build();
+        return build.toString();
+    }
+
 
 }
