@@ -20,7 +20,7 @@ public class RootConfig {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         hikariConfig.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
-        hikariConfig.setUsername("java_web1");
+        hikariConfig.setUsername("java_web");
         hikariConfig.setPassword("202104");
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);

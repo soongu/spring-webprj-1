@@ -53,8 +53,29 @@
 </div>
 <!-- /.row -->
 
+<script src="/js/custom/reply.js" ></script>
+
 <script>
 $(document).ready(function() {
+
+
+      //댓글 목록 부르기
+      const url = '/replies/1/1';
+      const repliesList = replyService.getList(url);
+      repliesList.then(rep => {
+        console.log(rep);
+      });
+      
+      //댓글 추가
+      /*
+      replyService.add({
+        reply: "js로 댓글써보기",
+        replyer: "김태평",
+        bno: "${board.bno}"
+      }, result => {
+        console.log(result);
+      });
+      */
 
       //목록 버튼 이벤트
       document.getElementById('list-btn').addEventListener('click', e => {
